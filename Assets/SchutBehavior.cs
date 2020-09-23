@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class SchutBehavior : MonoBehaviour {
   public GameObject cameraGO;
   public GameObject bulletPrefab;
   public int bpm = 100;
-  private float deltaTime = 0f;
-  private float nextSchutTime = 0f;
+  public GameObject BeatUI;
   private int nextColorIndex = 0;
   private Color green = new Color(0f, 1f, 0f);
   private Color red = new Color(1f, 0f, 0f);
@@ -30,10 +30,9 @@ public class SchutBehavior : MonoBehaviour {
   }
 
   void Update() {
-    deltaTime += Time.deltaTime;
-    if (deltaTime >= (60f / bpm)) {
-      deltaTime -= (60f / bpm);
-      GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+    if ((Time.time + 0.15f) % (60f / bpm) < 0.30f && Input.GetMouseButtonDown(0)) {
+      GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);      
+      BeatUI.GetComponent<Image>().color = colorCycle[getAndUpdateNextColor()];
       int colorIndex = getAndUpdateNextColor();
       bullet.GetComponent<Renderer>().material.color = colorCycle[colorIndex];
       bullet.GetComponent<BulletBehavior>().colorTag = colorTagCycle[colorIndex];

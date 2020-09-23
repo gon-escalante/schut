@@ -17,7 +17,6 @@ public class BulletBehavior : MonoBehaviour
     }
   }
   private void OnTriggerEnter2D(Collider2D other) {
-    Debug.Log(other);
     if (other.gameObject.GetComponent<EnemyBehavior>() && other.gameObject.GetComponent<EnemyBehavior>().colorTag == colorTag) {
       Destroy(other.gameObject);
     }

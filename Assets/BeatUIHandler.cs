@@ -6,13 +6,12 @@ using UnityEngine.UI;
 public class BeatUIHandler : MonoBehaviour {
   public int bpm = 100;
   public GameObject BeatUI;
-  private float lastBeatTime = 0f;
-  private float deltaTime = 0f;
   private int nextColorIndex = 0;
   private Color green = new Color(0f, 1f, 0f);
   private Color red = new Color(1f, 0f, 0f);
   private Color blue = new Color(0f, 0f, 1f);
   private Color[] colorCycle;
+  private int beatNumber = 1;
 
   int getAndUpdateNextColor() {
     nextColorIndex += 1;
@@ -27,12 +26,9 @@ public class BeatUIHandler : MonoBehaviour {
   }
 
   void Update() {
-    deltaTime += Time.deltaTime;
-    Debug.Log(60f/bpm);
-    if (deltaTime >= (60f / bpm)) {
-      deltaTime -= (60f / bpm);
+    if ((Time.time + 0.15f) % (60f / bpm * beatNumber) < 0.30f ) {
+      beatNumber++;
       BeatUI.GetComponent<Animator>().SetTrigger("beat");
-      BeatUI.GetComponent<Image>().color = colorCycle[getAndUpdateNextColor()];
     } else {
       BeatUI.GetComponent<Animator>().ResetTrigger("beat");
     }
