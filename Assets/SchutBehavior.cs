@@ -14,7 +14,7 @@ public class SchutBehavior : MonoBehaviour {
   private Color red = new Color(1f, 0f, 0f);
   private Color blue = new Color(0f, 0f, 1f);
   private Color[] colorCycle;
-  private string[] colorTagCycle;
+  private int[] colorTagCycle;
 
   int getAndUpdateNextColor() {
     nextColorIndex += 1;
@@ -26,15 +26,16 @@ public class SchutBehavior : MonoBehaviour {
 
   void Start() {
     colorCycle = new Color[] { green, red, blue };
-    colorTagCycle = new string[] { "green", "red", "blue" };
+    colorTagCycle = new int[] { 2, 1, 0 };
   }
 
   void Update() {
-    if ((Time.time + 0.15f) % (60f / bpm) < 0.30f && Input.GetMouseButtonDown(0)) {
+    if (Input.GetMouseButtonDown(0)) {
       GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);      
       BeatUI.GetComponent<Image>().color = colorCycle[getAndUpdateNextColor()];
       int colorIndex = getAndUpdateNextColor();
       bullet.GetComponent<Renderer>().material.color = colorCycle[colorIndex];
+      bullet.GetComponent<Animator>().SetInteger("colorID", colorTagCycle[colorIndex]);
       bullet.GetComponent<BulletBehavior>().colorTag = colorTagCycle[colorIndex];
       Camera camera =  cameraGO.GetComponent<Camera>();
       Vector2 playerScreenPoint = camera.WorldToScreenPoint(transform.position);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SchutableFloorBehavior : MonoBehaviour {
-  public string colorTag;
+  public int colorTag;
 
   void Start() {
   }

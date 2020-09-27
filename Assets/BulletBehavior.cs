@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletBehavior : MonoBehaviour
 {
-  public string colorTag;
+  public int colorTag;
   private float ttd;
 
   void Start() {

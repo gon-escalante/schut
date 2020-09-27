@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour {
-  public string colorTag;
+  public int colorTag;
   private GameObject player;
   void Start() {
     player = GameObject.Find("Player");
